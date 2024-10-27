@@ -93,8 +93,8 @@ const Header = ({ user }) => {
 
         <div className={styles.coinWrapper}>
           <div className={styles.coinContainer}>
-            {/* <h4 className={styles.coinText}>{user && user.builderBuck}</h4> */}
-            <h4 className={styles.coinText}>12</h4>
+            <h4 className={styles.coinText}>{user && user.cosmicToken}</h4>
+            {/* <h4 className={styles.coinText}>12</h4> */}
             <Image
               src={"/images/cosmicToken.png"}
               width={40}
@@ -103,8 +103,8 @@ const Header = ({ user }) => {
             />
           </div>
           <div className={styles.coinContainer}>
-            {/* <h4 className={styles.coinText}>{user && user.proCoin}</h4> */}
-            <h4 className={styles.coinText}>0</h4>
+            <h4 className={styles.coinText}>{user && user.proCoin}</h4>
+            {/* <h4 className={styles.coinText}>0</h4> */}
 
             {/* <h4 className={styles.coinText}>{12}</h4> */}
             <Image
