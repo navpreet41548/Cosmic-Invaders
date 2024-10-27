@@ -1,0 +1,122 @@
+.header {
+  display: flex;
+  justify-content: space-between;
+  position: relative;
+  z-index: 10;
+  padding: 10px;
+
+}
+.headerLeft {
+  display: flex;
+  flex-direction: column;
+}
+
+.wideImage {
+  width: 90px;
+  height: auto;
+  margin-bottom: 10px;
+}
+
+.smallImageWrapper {
+  display: flex;
+}
+
+.smallImageContainer {
+  position: relative;
+  margin-left: 10px;
+  cursor: pointer;
+}
+
+.smallImage {
+  width: 50px;
+  height: 50px;
+}
+
+.dropdownContainer {
+  position: absolute;
+  right: 0;
+  /* width: 250%; */
+  /* border: 1px solid white; */
+  /* background-color: rgba(255, 255, 255, 0.274); */
+  border-radius: 4px;
+  padding: 4px 0;
+  transform: translateY(-30%);
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.3s ease;
+  display: flex;
+}
+.dropdownContainerRow{
+  margin-left:  5px ;
+}
+
+.dropDownActive {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+.dropdownImageContainer {
+  width: 100%;
+  backdrop-filter: blur(5);
+  border-radius: 3px;
+  padding: 0px;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  overflow: hidden;
+  /* padding-bottom: 5px; */
+  margin-bottom: 5px;
+  width: 43px;
+  height: 43px;
+}
+
+.dropDownImage {
+  width: 100%;
+  height: 100%;
+  /* border: 1px solid white; */
+  border-radius: 5px;
+}
+
+.dropDownImageNumber {
+  position: absolute;
+  width: 100%;
+  border-radius: 5px;
+  height: 100%;
+  /* background-color: rgba(0, 0, 0, 0.1); */
+  /* top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%); */
+  display: flex;
+  justify-content: right;
+  align-items: end;
+  color: rgb(0, 0, 0);
+  font-family: "Days One", sans-serif;
+  /* stroke: 1px 1px white; */
+  text-shadow: 0px 0px 3px white;
+}
+
+.coinContainer {
+  display: flex;
+  align-items: center;
+  color: white;
+  justify-content: flex-end;
+  margin-top: 8px;
+}
+
+.coinText {
+  margin-right: 7px;
+  font-size: 20px;
+  font-family: "Days One", sans-serif;
+  color: #1d1d1d;
+  -webkit-text-stroke: 1px #ffffff; /* Black border */
+}
+
+.backButton {
+  font-family: "Days One", sans-serif;
+  background-color: #1d1d1d;
+  padding: 5px 10px;
+  border: 1px solid white;
+  border-radius: 5px;
+  color: white;
+}

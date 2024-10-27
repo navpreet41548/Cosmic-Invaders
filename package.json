@@ -9,8 +9,13 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@tonconnect/sdk": "^3.0.5",
+    "@tonconnect/ui-react": "^2.0.9",
+    "@tonsolutions/telemetree-react": "^1.1.10",
+    "mongoose": "^8.7.3",
+    "next": "14.2.15",
     "react": "^18",
     "react-dom": "^18",
-    "next": "14.2.15"
+    "react-toastify": "^10.0.6"
   }
 }

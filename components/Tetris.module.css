@@ -1,0 +1,222 @@
+/* components/Tetris.module.css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 13px !important;
+  font-family: "Days One", sans-serif;
+  font-weight: 400;
+  width: 100%;
+  margin-bottom: 20px;
+  color: white;
+}
+.headerRight {
+  display: flex;
+  align-items: center;
+}
+
+.statHeading {
+  font-size: 13px;
+  margin-left: 20px;
+}
+
+.customBlockHeading {
+  text-align: left;
+  width: 100%;
+  font-family: "Days One", sans-serif;
+  font-size: 10px;
+  margin-bottom: 10px;
+  text-align: center;
+  color: white;
+
+}
+
+.customBlockWrapper {
+  /* margin-bottom: 20px; */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.customBlockContainer {
+  width: 80%;
+  position: relative;
+}
+
+.customBlockImage {
+  width: 100%;
+  height: auto;
+}
+
+.customBlockNumber {
+  position: absolute;
+  bottom: 2px;
+  right: 2px;
+  color: white;
+  font-family: "Days One", sans-serif;
+  -webkit-text-stroke: 1px black; /* Stroke thickness and color */
+}
+
+.tetris {
+  display: flex;
+  /* justify-content: center; */
+  padding: 0px 0;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+  background-color: #282c34;
+}
+
+.info {
+  margin-bottom: 20px;
+  color: #fff;
+  font-size: 18px;
+  text-align: center;
+}
+
+.boardContainer {
+  display: flex;
+  align-items: flex-end;
+}
+
+.board {
+  display: grid;
+  grid-template-rows: repeat(20, 25px);
+  grid-template-columns: repeat(10, 25px);
+  gap: 1px;
+  border: 1px solid #6d6d6d;
+  background-color: #2a2a2a;
+  border-radius: 5px;
+}
+
+/* .cell {
+  width: 25px;
+  height: 25px;
+  border-top: 3px solid rgba(255, 255, 255, 0.1);
+  border-left: 3px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+  border-right: 3px solid rgba(0, 0, 0, 0.1);
+} */
+
+.cell {
+  width: 25px;
+  height: 25px;
+  /* border: 1px solid #e2e2e2; */
+  background-color: transparent;
+  /* position: relative; */
+  overflow: hidden;
+  /* position: relative; */
+  border: 1px solid rgba(255, 255, 255, 0.062);
+}
+
+.activeCell {
+  border-radius: 2px;
+  position: relative;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  border-left: 1px solid rgba(255, 255, 255, 0.1);
+  border-bottom: 3px solid rgba(0, 0, 0, 0.1);
+  border-right: 3px solid rgba(0, 0, 0, 0.1);
+}
+
+.cell .sparkle {
+  position: absolute;
+  z-index: 10;
+  width: 6px;
+  height: 6px;
+  left: -2px;
+  top: -2px;
+  background-color: rgba(255, 255, 255, 0.4);
+  border-radius: 4px 4px;
+}
+
+.cell .sparkle {
+  display: none;
+}
+.activeCell .sparkle {
+  display: block;
+}
+
+.gameOver {
+  z-index: 10;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  font-size: 32px;
+  color: red;
+  background-color: rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  border-radius: 10px;
+  width: 90%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  font-family: "Days One", sans-serif;
+}
+
+.gameOverStatHeading{
+  color: white;
+  font-size: 13px;
+  font-family: "Poppins", sans-serif;
+  font-weight: 600;
+}
+
+.restartButton {
+  margin-top: 10px;
+  padding: 10px 20px;
+  font-size: 18px;
+  color: #fff;
+  background-color: #007bff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.restartButton:hover {
+  background-color: #0056b3;
+}
+
+.nextPieceContainer {
+  margin-top: 20px;
+  padding-left: 6px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.nextPiece {
+  display: grid;
+  grid-template-columns: repeat(4, 9px);
+  grid-template-rows: repeat(4, 9px);
+  gap: 1px;
+}
+
+.nextPiece .cell {
+  width: 9px !important;
+  height: 9px !important;
+}
+
+.controls {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.controlButton {
+  margin: 5px;
+  padding: 10px 20px;
+  font-size: 18px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.controlButton:hover {
+  background-color: #0056b3;
+}
