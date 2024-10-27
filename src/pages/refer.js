@@ -123,14 +123,14 @@ const refer = () => {
             <h3 className={styles.codeHeading}>Share this Url</h3>
             <h4 className={styles.codeSubHeading}>
               {user &&
-                `https://t.me/block_builder_game_bot/blockBuilder?startapp=${user.referCode}`}
+                `https://t.me/CosmicInvadersBot/cosmicinvaders?startapp=${user.referCode}`}
             </h4>
             <button
               className={styles.button}
               onClick={() =>
                 handleCopy(
                   user &&
-                    `https://t.me/block_builder_game_bot/blockBuilder?startapp=${user.referCode}`
+                    `https://t.me/CosmicInvadersBot/cosmicinvaders?startapp=${user.referCode}`
                 )
               }
             >
