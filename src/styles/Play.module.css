@@ -36,6 +36,13 @@
     display: inline-block;
 }
 
+.enemy{
+    position: absolute;
+    width: 50px;
+    height: auto;
+    transition: all 0.3s ease;
+}
+
 .playArea{
     height: 100%;
     display: flex;
@@ -44,15 +51,37 @@
     position: relative;
 }
 
+
+
+
 .enemyArea{
     width: 100%;
     height: 70%;
     /* border: 1px solid red; */
+    position: relative;
+    overflow: hidden;
 }
+
+.enemy{
+    position: absolute;
+    width: 50px;
+    height: auto;
+    
+}
+
 .playerArea{
     width: 100%;
     height: 10%;
+    position: relative;
     /* border: 1px solid green; */
+    overflow: hidden;
+}
+
+.player{
+    position: absolute;
+    height: 80%;
+    width: auto;
+    left: 45%;
 }
 
 .buttonArea{
@@ -73,3 +102,33 @@ align-items: center;
     font-size: 30px;
     cursor: pointer;
 }
+
+.bullet {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    /* background-color: red; */
+    z-index: 3;
+    background-image: url("/images/play/playerBullet.png");
+    background-size: cover;
+    background-position: center;
+}
+.enemyBullet{
+    
+    position: absolute;
+    width: 5px;
+    height: 10px;
+    background-color: red;
+    z-index: 3;
+  }
+  
+  .enemyImage {
+    width: 50px;
+    height: auto;
+  }
+  
+  .playerImage {
+    width: 50px;
+    height: 100px;
+  }
+  
