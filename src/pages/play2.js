@@ -100,7 +100,7 @@ export default function Play() {
           {enemies.map((enemy) => (
             <Image
               key={enemy.id}
-              src={"/images/play/simpleEnemy.png"}
+              src={"/images/play/simpleEnemy2.png"}
               className={styles.enemyImage}
               style={{
                 left: `${enemy.x}%`,
@@ -114,9 +114,12 @@ export default function Play() {
             />
           ))}
           {gameOver && (
+            <div className={styles.gameOverOverlay}>
+
             <div className={styles.gameOverContainer}>
               <div className={styles.gameOverText}>Game Over</div>
               <button className={styles.restartButton} onClick={restartGame}>Restart</button>
+            </div>
             </div>
           )}
         </div>

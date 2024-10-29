@@ -72,7 +72,7 @@ export default function Home() {
           alt="Home Title Image"
         />
         <div className={styles.buttonContainer}>
-          <Link href={"/play"} className={styles.button}>
+          <Link href={"/play2"} className={styles.button}>
             PLAY
           </Link>
           <Link href={"/refer"} className={styles.button}>
