@@ -10,8 +10,9 @@ export default function Play() {
   const [gameOver, setGameOver] = useState(false);
   const [spawnRate, setSpawnRate] = useState(2000);
   const [enemySpeed, setEnemySpeed] = useState(1);
+  const [laserDots, setLaserDots] = useState([]); // Stores positions of dots for the laser beam
+  const [fireEffect, setFireEffect] = useState([]); // Track enemies showing fire image
 
-  // Update difficulty and level based on score
   useEffect(() => {
     if (score >= level * 10) {
       setLevel((prev) => prev + 1);
@@ -20,7 +21,6 @@ export default function Play() {
     }
   }, [score]);
 
-  // Spawn enemies based on spawnRate
   useEffect(() => {
     if (!gameOver) {
       const enemySpawn = setInterval(() => spawnEnemy(), spawnRate);
@@ -28,7 +28,6 @@ export default function Play() {
     }
   }, [spawnRate, gameOver]);
 
-  // Move enemies toward the base
   useEffect(() => {
     if (!gameOver) {
       const moveEnemies = setInterval(() => moveEnemiesToBase(), 100);
@@ -68,9 +67,35 @@ export default function Play() {
     );
   }
 
-  function handleShootEnemy(id) {
-    setEnemies((prev) => prev.filter((enemy) => enemy.id !== id));
-    setScore((prev) => prev + 1);
+  function handleShootEnemy(id, targetX, targetY) {
+    // Clear only relevant laser dots for each shot, keeping other shots intact
+    const startX = 50; // Base position in %
+    const startY = 50;
+    const dx = targetX - startX;
+    const dy = targetY - startY;
+
+    // Define bullet dots with staggered delays
+    const bulletDots = [
+      { id, x: startX, y: startY, dx, dy, delay: 0 },
+      { id, x: startX, y: startY, dx, dy, delay: 0.05 },
+      { id, x: startX, y: startY, dx, dy, delay: 0.1 }
+    ];
+
+    setLaserDots((prev) => [...prev, ...bulletDots]);
+
+    // Show fire effect for the current enemy
+    setTimeout(() => {
+      setFireEffect((prev) => [...prev, id]);
+    }, 300); // Wait until bullets "hit"
+
+    setTimeout(() => {
+      setEnemies((prev) => prev.filter((enemy) => enemy.id !== id));
+      setScore((prev) => prev + 1); // Update score only when enemy is "hit"
+      
+      // Clear laser dots and fire effect for the current enemy only
+      setLaserDots((prev) => prev.filter((dot) => dot.id !== id));
+      setFireEffect((prev) => prev.filter((enemyId) => enemyId !== id));
+    }, 600); // Matches explosion duration
   }
 
   function restartGame() {
@@ -80,6 +105,8 @@ export default function Play() {
     setSpawnRate(2000);
     setEnemySpeed(1);
     setGameOver(false);
+    setLaserDots([]);
+    setFireEffect([]);
   }
 
   return (
@@ -98,27 +125,59 @@ export default function Play() {
         <div className={styles.playArea}>
           <Image className={styles.baseImage} src="/images/play/base.png" width="200" height="250" alt="Base Image" />
           {enemies.map((enemy) => (
-            <Image
-              key={enemy.id}
-              src={"/images/play/simpleEnemy2.png"}
-              className={styles.enemyImage}
+            <div key={enemy.id} className={styles.enemyContainer}>
+              <Image
+                src={"/images/play/simpleEnemy.png"}
+                className={styles.enemyImage}
+                style={{
+                  left: `${enemy.x}%`,
+                  top: `${enemy.y}%`,
+                  transform: `rotate(${enemy.angle}deg)`,
+                }}
+                width={50}
+                height={50}
+                alt="Enemy"
+                onClick={() => handleShootEnemy(enemy.id, enemy.x, enemy.y)}
+              />
+              {/* Show fire effect if enemy is in fireEffect array */}
+              {fireEffect.includes(enemy.id) && (
+                <Image
+                  src="/images/play/fire.png" // Your fire image path
+                  className={styles.fireImage}
+                  width={50}
+                  height={50}
+                  alt="Explosion"
+                  style={{
+                    left: `${enemy.x}%`,
+                    top: `${enemy.y}%`,
+                    position: 'absolute'
+                  }}
+                />
+              )}
+            </div>
+          ))}
+          {laserDots.map((dot, index) => (
+            <div
+              key={index}
+              className={styles.laserDot}
               style={{
-                left: `${enemy.x}%`,
-                top: `${enemy.y}%`,
-                transform: `rotate(${enemy.angle}deg)`,
+                left: `${dot.x}%`,
+                top: `${dot.y}%`,
+                animationDelay: `${dot.delay}s`,
+                "--dx": dot.dx,
+                "--dy": dot.dy,
               }}
-              width={50}
-              height={50}
-              alt="Enemy"
-              onClick={() => handleShootEnemy(enemy.id)}
             />
           ))}
+
           {gameOver && (
             <div className={styles.gameOverOverlay}>
 
             <div className={styles.gameOverContainer}>
               <div className={styles.gameOverText}>Game Over</div>
-              <button className={styles.restartButton} onClick={restartGame}>Restart</button>
+              <button className={styles.restartButton} onClick={restartGame}>
+                Restart
+              </button>
             </div>
             </div>
           )}
