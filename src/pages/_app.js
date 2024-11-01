@@ -23,11 +23,11 @@ export default function App({ Component, pageProps }) {
 
       {isClient && (
         <TwaAnalyticsProvider
-          projectId='515446fd-aa0c-444f-b015-f639e79ba7ec'
-          apiKey='a708035e-b4ed-4d20-ad79-05896bc206fd'
-          appName='Block Builder'
+        projectId = {process.env.NEXT_PUBLIC_PROJECT_ID}
+        apiKey= {process.env.NEXT_PUBLIC_API_KEY}
+        appName={process.env.NEXT_PUBLIC_APP_NAME}
         >
-          <TonConnectUIProvider manifestUrl="https://block-builder-game.vercel.app/tonconnect-manifest.json">
+          <TonConnectUIProvider manifestUrl="https://cosmic-invaders.vercel.app/tonconnect-manifest.json">
             <Layout>
               <ToastContainer
                 position="top-center"
