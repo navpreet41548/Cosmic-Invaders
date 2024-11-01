@@ -22,15 +22,15 @@ const Header = ({ user }) => {
             alt="Bonus Image"
           />
         </Link>
-        {/* <Link href={"/bonus"}>
+        <Link href={"/bonus"}>
           <Image
             className={styles.wideImage}
-            src={"/images/logo.png"}
+            src={"/images/bonus.png"}
             width={100}
             height={60}
-            alt="Shop Image"
+            alt="Bonus Image"
           />
-        </Link> */}
+        </Link>
       </div>
 
       <div className={styles.headerRight}>
