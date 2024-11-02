@@ -13,6 +13,10 @@ export default function Play() {
   const [laserDots, setLaserDots] = useState([]); // Stores positions of dots for the laser beam
   const [fireEffect, setFireEffect] = useState([]); // Track enemies showing fire image
 
+  // Load sound files
+  const gunSound = typeof window !== "undefined" ? new Audio("/sound/gunShoot.mp3") : null;
+  const enemyOutSound = typeof window !== "undefined" ? new Audio("/sound/enemyOut.mp3") : null;
+
   useEffect(() => {
     if (score >= level * 10) {
       setLevel((prev) => prev + 1);
@@ -68,6 +72,9 @@ export default function Play() {
   }
 
   function handleShootEnemy(id, targetX, targetY) {
+    // Play gun sound immediately
+    gunSound.play();
+
     // Clear only relevant laser dots for each shot, keeping other shots intact
     const startX = 50; // Base position in %
     const startY = 50;
@@ -83,9 +90,10 @@ export default function Play() {
 
     setLaserDots((prev) => [...prev, ...bulletDots]);
 
-    // Show fire effect for the current enemy
+    // Show fire effect for the current enemy and play enemy hit sound after bullet "hit"
     setTimeout(() => {
       setFireEffect((prev) => [...prev, id]);
+      enemyOutSound.play();
     }, 300); // Wait until bullets "hit"
 
     setTimeout(() => {
@@ -172,13 +180,12 @@ export default function Play() {
 
           {gameOver && (
             <div className={styles.gameOverOverlay}>
-
-            <div className={styles.gameOverContainer}>
-              <div className={styles.gameOverText}>Game Over</div>
-              <button className={styles.restartButton} onClick={restartGame}>
-                Restart
-              </button>
-            </div>
+              <div className={styles.gameOverContainer}>
+                <div className={styles.gameOverText}>Game Over</div>
+                <button className={styles.restartButton} onClick={restartGame}>
+                  Restart
+                </button>
+              </div>
             </div>
           )}
         </div>
