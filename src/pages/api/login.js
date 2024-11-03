@@ -83,7 +83,7 @@ export default async function handler(req, res) {
         } else if (i === 30) {
           reward = "10 $Pro Coins";
         } else {
-          reward = `${i} Cosmic Token`;
+          reward = `${i * 5} Cosmic Token`;
         }
 
         defaultDailyBonus.push({
