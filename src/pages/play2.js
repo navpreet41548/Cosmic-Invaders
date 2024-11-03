@@ -14,8 +14,12 @@ export default function Play() {
   const [fireEffect, setFireEffect] = useState([]); // Track enemies showing fire image
 
   // Load sound files
-  const gunSound = typeof window !== "undefined" ? new Audio("/sound/gunShoot.mp3") : null;
+  const gunSound = typeof window !== "undefined" ? new Audio("/sound/laserGun.mp3") : null;
   const enemyOutSound = typeof window !== "undefined" ? new Audio("/sound/enemyOut.mp3") : null;
+  
+  if (enemyOutSound) {
+    enemyOutSound.volume = 0.1; // Set to desired volume level (e.g., 0.3 for 30%)
+  }
 
   useEffect(() => {
     if (score >= level * 10) {
