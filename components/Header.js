@@ -13,10 +13,10 @@ const Header = ({ user }) => {
   return (
     <div className={styles.header}>
       <div className={styles.headerLeft}>
-        <Link href={"/"}>
+        <Link href={"/shop"}>
           <Image
             className={styles.wideImage}
-            src={"/images/logo.png"}
+            src={"/images/shop.png"}
             width={100}
             height={60}
             alt="Bonus Image"
