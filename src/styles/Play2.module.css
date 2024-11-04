@@ -86,14 +86,102 @@
   
   .gameOverContainer {
     position: absolute;
-    /* top: 50%; */
-    top: 20%;
+    background-color: #7E52E3;
+    top: 50%;
+    /* top: 20%; */
     left: 50%;
     transform: translate(-50%, -50%);
     text-align: center;
     z-index: 5;
+    width: 90%;
+    font-family: "Lilita One", sans-serif;
+    border-radius: 10px;
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
   }
   
+  .gameOverHeader{
+    background-color: #5934A8;
+    position: relative;
+    padding: 5px 0;
+    width: 100%;
+  }
+  
+  .gameOverHeaderText{
+    font-family: "Lilita One", sans-serif;
+    /* -webkit-text-stroke: 1px white; */
+    color: #BE99F8;
+
+  }
+
+  .cross{
+    color: white;
+    position: absolute;
+    top: 50%;
+    right: 10px;
+    transform: translateY(-50%);
+    font-size: 20PX;
+    cursor: pointer;
+  }
+
+  .gameOverMainHeading{
+    margin-top: 20px;
+    margin-bottom: 5px;
+    color: white;
+  }
+
+  .gameOverTimeContainer{
+    width: 70px;
+    height: 70px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #5934A8;
+    color: white;
+    font-size: 25px;
+    margin-bottom: 10px;
+
+  }
+
+  .gameOverButtonContainer{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-bottom: 20px;
+  }
+
+  .gameOverButton{
+    width: 45%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 5px;
+    font-family: "Lilita One", sans-serif;
+    font-size: 20px;
+    border-radius: 4px;
+    border: 3px solid #5934A8;
+  }
+
+  .gameOverButton1{
+background-color: #A98BFC;
+color: white;
+  }
+  .gameOverButton2{
+background-color: #FFE200;
+color: #640300;
+  }
+
+  .gameOverButtonIcon{
+    width: 30px;
+    margin-right: 5px;
+    height: auto;
+  }
+
+
   .gameOverText {
     color: white;
     font-size: 24px;
