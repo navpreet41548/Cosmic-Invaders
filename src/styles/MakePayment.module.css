@@ -1,0 +1,23 @@
+.button {
+  background-color: #07acff;
+  color: white;
+  padding: 4px 10px;
+  border-radius: 5px;
+  font-family: "Poppins", sans-serif;
+  font-size: 13px;
+  cursor: pointer;
+  width: auto;
+  text-align: center;
+  border: none;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  min-width: 70px;
+}
+
+.buttonIcon {
+  width: 20px;
+  margin-right: 4px;
+  height: 20px;
+}

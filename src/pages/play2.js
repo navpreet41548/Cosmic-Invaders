@@ -89,14 +89,14 @@ export default function Play() {
 
       const data = await response.json();
       if (!response.ok || data.cosmicToken < 10) {
-        // window.location.href = '/';
+        window.location.href = '/shop';
       } else {
         setGameOver(false);
         setEnemies([]); // Clear nearby enemies
       }
     } catch (error) {
       console.error("Failed to decrease cosmic token:", error);
-      // window.location.href = '/';
+      window.location.href = '/shop';
     }
   }
 
