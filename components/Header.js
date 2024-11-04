@@ -35,7 +35,7 @@ const Header = ({ user }) => {
 
       <div className={styles.headerRight}>
         <div className={styles.smallImageWrapper}>
-          <div
+          {/* <div
             onClick={() => toggleDropDown(0)}
             className={styles.smallImageContainer}
           >
@@ -56,7 +56,6 @@ const Header = ({ user }) => {
                   src={"/images/powerUps.png"}
                 />
                 <div className={styles.dropDownImageNumber}>
-                  {/* {user && user.customBlocks?.tBlock} */}
                   20
                 </div>
               </div>
@@ -68,7 +67,6 @@ const Header = ({ user }) => {
                   src={"/images/powerUps.png"}
                 />
                 <div className={styles.dropDownImageNumber}>
-                {/* {user && user.customBlocks?.squareBlock}    */}
                 20
                              </div>
               </div>
@@ -78,7 +76,7 @@ const Header = ({ user }) => {
              
             </div>
           </div>
-          
+           */}
 
           <Link href={"/refer"} className={styles.smallImageContainer}>
             <Image

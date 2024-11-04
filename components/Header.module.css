@@ -19,6 +19,7 @@
 
 .smallImageWrapper {
   display: flex;
+  justify-content: flex-end;
 }
 
 .smallImageContainer {
