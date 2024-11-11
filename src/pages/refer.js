@@ -97,7 +97,7 @@ const refer = () => {
 
           <h2 className={styles.mainHeading}>REFER AND EARN</h2>
           <p className={styles.mainPara}>
-            Referrers receive <span className={styles.diff}>$0.02 - $1</span> per successful referral. Referees start with <span className={styles.diff}>2000</span> $Cosmic.
+            Referrers receive <span className={styles.diff}>$0.02 - $1</span> per successful referral. Referees start with <span className={styles.diff}>2000</span> $COSMIC.
           </p>
 
           <div className={styles.codeContainer}>
