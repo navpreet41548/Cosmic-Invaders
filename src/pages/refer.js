@@ -6,7 +6,7 @@ import Link from "next/link";
 
 const refer = () => {
   const [copyText, setCopyText] = useState("COPY");
-  const [user, setUser] = useState();
+  const [user, setUser] = useState(null);
   const [totalRefers, setTotalRefers] = useState(0);
   const [totalEarnings, setTotalEarnings] = useState(0);
 
@@ -27,10 +27,7 @@ const refer = () => {
   useEffect(() => {
     const handleLogin = async () => {
       const url = new URL(window.location.href);
-      const params = new URLSearchParams(url.search);
-
-      let userId;
-      let username;
+      let userId, username;
 
       if (window.Telegram.WebApp.initDataUnsafe.user) {
         userId = window.Telegram.WebApp.initDataUnsafe.user.id;
@@ -49,19 +46,20 @@ const refer = () => {
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userId: userId }),
+            body: JSON.stringify({ userId }),
           });
 
           const data = await response.json();
           console.log("Login response:", data);
 
-          // Set user data
+          // Set user data and calculate totals
+          const { referredUser = [] } = data.user;
           setUser(data.user);
 
-          // Calculate total referrals and earnings
-          const referrals = data.user.referrals || []; // Assuming `referrals` is an array of referred users
-          setTotalRefers(referrals.length);
-          setTotalEarnings(referrals.length * 0.2); // $0.2 per referral
+          // Calculate Total Referrals and Earnings
+          const referralCount = referredUser.length;
+          setTotalRefers(referralCount);
+          setTotalEarnings(referralCount * 0.2); // $0.2 per referral
         } catch (error) {
           console.error("Error during login request:", error);
         }
