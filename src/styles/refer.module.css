@@ -71,6 +71,7 @@
   margin-top: 50px;
   position: relative;
   z-index: 1;
+  font-family: "Days One", sans-serif
 }
 
 .mainPara {
@@ -80,20 +81,31 @@
   position: relative;
   z-index: 1;
   margin: 10px 0;
+  font-family: "Poppins", sans-serif;
+  font-weight: 500;
+}
+
+.diff{
+  color: #FF2F2F ;
+  font-weight: 600;
 }
 
 .button {
-  background-color: #007BFF;
-  color: white;
-  border: none;
+  background-color: #A98BFC;
+  border: 3px solid #5934A8;
+  font-family: "Days One", sans-serif;
+  color: #5934A8;
+  -webkit-text-stroke: 0.2px white;
+  text-stroke: 0.2px white;
   padding: 10px 10px;
   border-radius: 5px;
-  font-weight: 600;
+  font-weight: 700;
   font-size: 13px;
   cursor: pointer;
   width: 150px;
   position: relative;
   z-index: 1;
+  margin-bottom: 20px;
 }
 
 .codeContainer {
@@ -104,11 +116,25 @@
   margin-top: 30px;
   position: relative;
   z-index: 3;
+  background-color: #7E52E3;
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+.codeHeader{
+  background-color: #5934A8;
+  width: 100%;
+  text-align: center;
+  padding: 10px;
 }
 
 .codeHeading {
   font-size: 14px;
-  color: #ffffff;
+  color: #BE99F8;
+  font-family: "Days One", sans-serif;
+  -webkit-text-stroke: 0.2px white;
+text-stroke: 0.2px white;
+  
 }
 
 .codeSubHeading {
@@ -118,6 +144,8 @@
   font-size: 15px;
   text-align: center;
   width: 90%;
+  font-family: "Days One", sans-serif;
+  word-wrap: break-word;
 }
 
 .input {
@@ -175,4 +203,50 @@
   font-family: "Days One", sans-serif;
   margin-left: 5px;
   font-size: 18px;
+}
+
+
+.statWrapper{
+  display: flex;
+  justify-content: space-between;
+  color: white;
+  position: relative;
+  z-index: 10;
+  margin-top: 30px;
+  
+}
+
+.statContainer{
+  width: 45%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.statHeading{
+  font-family: "Days One", sans-serif;
+}
+
+.statInput{
+  font-family: "Days One", sans-serif;
+  background-color: white;
+  width: 100%;
+  padding: 10px;
+  border-radius: 20px;
+  color: black;
+  text-align: center;
+  margin-top: 5px;
+}
+
+.noteHeading{
+  text-align: center;
+  color: white;
+  font-family: "Days One", sans-serif;
+  position: relative;
+  z-index: 10;
+  margin-top: 30px;
+  width: 100%;
+  padding: 0 10px ;
+  text-align: center;
 }

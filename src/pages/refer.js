@@ -3,14 +3,12 @@ import Head from "next/head";
 import styles from "@/styles/refer.module.css";
 import Image from "next/image";
 import Link from "next/link";
-import Header from "../../components/Header";
 
 const refer = () => {
   const [copyText, setCopyText] = useState("COPY");
   const [user, setUser] = useState();
-  const [code, setCode] = useState("");
-  const [initData, setInitData] = useState();
-  const [message, setMessage] = useState("");
+  const [totalRefers, setTotalRefers] = useState(0);
+  const [totalEarnings, setTotalEarnings] = useState(0);
 
   const handleCopy = (code) => {
     navigator.clipboard
@@ -26,19 +24,13 @@ const refer = () => {
       });
   };
 
-
   useEffect(() => {
     const handleLogin = async () => {
-      // Get the current URL
       const url = new URL(window.location.href);
       const params = new URLSearchParams(url.search);
 
       let userId;
       let username;
-      const userData = {
-        username,
-        userId, // make sure the key is "userId" as expected by the backend
-      };
 
       if (window.Telegram.WebApp.initDataUnsafe.user) {
         userId = window.Telegram.WebApp.initDataUnsafe.user.id;
@@ -50,21 +42,26 @@ const refer = () => {
 
       if (userId) {
         try {
-          // Define the login endpoint
-          const endpoint = "/api/getUser"; // Adjust this to your actual endpoint
+          const endpoint = "/api/getUser";
 
-          // Make the request to the login endpoint
           const response = await fetch(endpoint, {
             method: "POST",
             headers: {
               "Content-Type": "application/json",
             },
-            body: JSON.stringify({ userId: userId }), // Send the userId as part of the request body
+            body: JSON.stringify({ userId: userId }),
           });
 
           const data = await response.json();
           console.log("Login response:", data);
+
+          // Set user data
           setUser(data.user);
+
+          // Calculate total referrals and earnings
+          const referrals = data.user.referrals || []; // Assuming `referrals` is an array of referred users
+          setTotalRefers(referrals.length);
+          setTotalEarnings(referrals.length * 0.2); // $0.2 per referral
         } catch (error) {
           console.error("Error during login request:", error);
         }
@@ -73,54 +70,42 @@ const refer = () => {
       }
     };
 
-    // Call the function to handle login
     handleLogin();
-  }, []); //
-
-  useEffect(() => {
-    // setTelegramUserData(window.Telegram.WebApp.initDataUnsafe.user);
-    //  setTelegramUserData({ id: "testingid" });
-    // if (window.Telegram.WebApp.initDataUnsafe.start_param) {
-    //   setInitData(window.Telegram.WebApp.initDataUnsafe);
-    // } else {
-    //   setInitData({ start_param: "kajf34" });
-    // }
   }, []);
 
   return (
     <>
-      
       <div className={styles.containerWrapper}>
         <div className={styles.container}>
-          {/* <Header showBackButton={true} user={user} /> */}
           <div className={styles.header}>
-        <Link className={styles.backButton} href={"/"}>
-          <i class="bx bx-arrow-back"></i>
-          Back
-        </Link>
+            <Link className={styles.backButton} href={"/"}>
+              <i className="bx bx-arrow-back"></i>
+              Back
+            </Link>
 
-
-        <div className={styles.coinWrapper}>
-          <div className={styles.coinContainer}>
-            <Image
-              src={"/images/cosmicToken.png"}
-              classNam={styles.coinImage}
-              width={40}
-              height={40}
-              alt="Cosmic Token"
-            />
-            <h4 className={styles.coinNumber}>{user && user.cosmicToken}</h4>
+            <div className={styles.coinWrapper}>
+              <div className={styles.coinContainer}>
+                <Image
+                  src={"/images/cosmicToken.png"}
+                  className={styles.coinImage}
+                  width={40}
+                  height={40}
+                  alt="Cosmic Token"
+                />
+                <h4 className={styles.coinNumber}>{user && user.cosmicToken}</h4>
+              </div>
+            </div>
           </div>
-        </div>
-      </div>
+
           <h2 className={styles.mainHeading}>REFER AND EARN</h2>
           <p className={styles.mainPara}>
-            Referrers receive 3 $Cosmic per successful referral. Referees
-            start with 3 $Cosmic.
+            Referrers receive <span className={styles.diff}>$0.02 - $1</span> per successful referral. Referees start with <span className={styles.diff}>2000</span> $Cosmic.
           </p>
 
           <div className={styles.codeContainer}>
-            <h3 className={styles.codeHeading}>Share this Url</h3>
+            <div className={styles.codeHeader}>
+              <h3 className={styles.codeHeading}>Share this URL</h3>
+            </div>
             <h4 className={styles.codeSubHeading}>
               {user &&
                 `https://t.me/CosmicInvadersBot/cosmicinvaders?startapp=${user.referCode}`}
@@ -138,18 +123,22 @@ const refer = () => {
             </button>
           </div>
 
-          {/* <div className={styles.codeContainer}>
-            <h3 className={styles.codeHeading}>ENTER CODE</h3>
-            <input
-              className={styles.input}
-              value={code}
-              onChange={(e) => setCode(e.target.value)}
-            />
-            <button onClick={handleInvite} className={styles.button}>
-              ENTER
-            </button>
-            <h4 className={styles.message}>{message}</h4>
-          </div> */}
+          <div className={styles.statWrapper}>
+            <div className={styles.statContainer}>
+              <h5 className={styles.statHeading}>Total Earnings</h5>
+              <div className={styles.statInput}>
+                ${totalEarnings.toFixed(2)}
+              </div>
+            </div>
+            <div className={styles.statContainer}>
+              <h5 className={styles.statHeading}>Total Referrals</h5>
+              <div className={styles.statInput}>
+                {totalRefers}
+              </div>
+            </div>
+          </div>
+
+          <h5 className={styles.noteHeading}>Token transfer will be available after the Airdrop</h5>
         </div>
       </div>
     </>

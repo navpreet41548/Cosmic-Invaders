@@ -101,7 +101,7 @@ export default async function handler(req, res) {
       if (referCode) {
          referredUser = await User.findOne({ referCode });
         if (referredUser) {
-          referredUser.builderBuck += 3;
+          // referredUser.cosmicToken += 2000;
           referredUser.referredUser.push({ userId });
           await referredUser.save();
           invitedBy = referredUser.userId;
@@ -120,7 +120,7 @@ export default async function handler(req, res) {
           rapidFire: 10,
           timeWrap: 10,
           },
-        cosmicToken:referCode? 3: 0,
+        cosmicToken:referCode? 2000: 0,
         proCoin: 0,
         dailyBonus: defaultDailyBonus,
         referCode: generateReferCode(),
