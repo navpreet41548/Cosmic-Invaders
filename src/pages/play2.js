@@ -14,6 +14,8 @@ export default function Play() {
   const [fireEffect, setFireEffect] = useState([]);
   const [tokenAmount, setTokenAmount] = useState(0);
   const [countdown, setCountdown] = useState(5);
+  const [user, setUser] = useState()
+  const [baseImage, setBaseImage] = useState("/images/base1.png")
 
   const [totalEnemiesKilled, setTotalEnemiesKilled] = useState(0); // Track total enemies killed
 
@@ -216,6 +218,64 @@ export default function Play() {
     setTotalEnemiesKilled(0); // Reset total enemies killed
   }
 
+
+  useEffect(() => {
+    const handleLogin = async () => {
+      const url = new URL(window.location.href);
+      let userId, username;
+
+      if (window.Telegram.WebApp.initDataUnsafe.user) {
+        userId = window.Telegram.WebApp.initDataUnsafe.user.id;
+        username = window.Telegram.WebApp.initDataUnsafe.user.username;
+      } else {
+        userId = "testingid";
+        username = "navwebdev";
+      }
+
+      if (userId) {
+        try {
+          const endpoint = "/api/getUser";
+
+          const response = await fetch(endpoint, {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({ userId }),
+          });
+
+          const data = await response.json();
+          console.log("Login response:", data);
+
+          // Set user data and calculate totals
+          const { referredUser = [] } = data.user;
+          setUser(data.user);
+
+          // Calculate Total Referrals and Earnings
+          const referralCount = referredUser.length;
+          setTotalRefers(referralCount);
+          setTotalEarnings(referralCount * 0.2); // $0.2 per referral
+          const baseMapping = {
+            "Base 1": "/images/base1.png",
+            "Base 2": "/images/base2.png",
+            "Base 3": "/images/base3.png",
+            "Base 4": "/images/base4.png",
+          };
+  
+          setBaseImage(baseMapping[data.user.currentBase] || "/images/base1.png");
+        } catch (error) {
+          console.error("Error during login request:", error);
+        }
+      } else {
+        console.error("No userId found in the URL");
+      }
+    };
+
+    handleLogin();
+  }, []);
+
+
+
   return (
     <div className={styles.container}>
       <Image src={"/images/playBg.png"} className={styles.bgImage} width={500} height={1000} alt={"Background Image"} />
@@ -229,7 +289,7 @@ export default function Play() {
         </div>
       </div>
       <div className={styles.playArea}>
-        <Image className={styles.baseImage} src="/images/play/base.png" width="200" height="250" alt="Base Image" />
+        <Image className={styles.baseImage}  src={baseImage} width="200" height="250" alt="Base Image" />
         {enemies.map((enemy) => (
           <div key={enemy.id} className={styles.enemyContainer}>
             <Image src={"/images/play/simpleEnemy.png"} className={styles.enemyImage} style={{

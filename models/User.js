@@ -4,6 +4,7 @@ const userSchema = new mongoose.Schema(
   {
     userId: { type: String, index: true },
     totalKills: Number,
+    currentBase: String,
     username: String,
     cosmicToken: Number,
     proCoin: Number,
