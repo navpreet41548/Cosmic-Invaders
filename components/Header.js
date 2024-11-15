@@ -13,6 +13,8 @@ const Header = ({ user }) => {
   return (
     <div className={styles.header}>
       <div className={styles.headerLeft}>
+        <div className={styles.headerLeftCol}>
+
         <Link href={"/shop"}>
           <Image
             className={styles.wideImage}
@@ -20,7 +22,7 @@ const Header = ({ user }) => {
             width={100}
             height={60}
             alt="Bonus Image"
-          />
+            />
         </Link>
         <Link href={"/bonus"}>
           <Image
@@ -29,8 +31,30 @@ const Header = ({ user }) => {
             width={100}
             height={60}
             alt="Bonus Image"
-          />
+            />
         </Link>
+            </div>
+        <div className={styles.headerLeftCol}>
+
+        <Link href={"/leaderboard"}>
+          <Image
+            className={styles.wideImage}
+            src={"/images/leaderboard.png"}
+            width={100}
+            height={60}
+            alt="Bonus Image"
+            />
+        </Link>
+        <Link href={"/bases"}>
+          <Image
+            className={styles.wideImage}
+            src={"/images/bases.png"}
+            width={100}
+            height={60}
+            alt="Bonus Image"
+            />
+        </Link>
+            </div>
       </div>
 
       <div className={styles.headerRight}>
