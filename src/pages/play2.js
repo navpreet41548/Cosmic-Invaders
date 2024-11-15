@@ -15,6 +15,8 @@ export default function Play() {
   const [tokenAmount, setTokenAmount] = useState(0);
   const [countdown, setCountdown] = useState(5);
 
+  const [totalEnemiesKilled, setTotalEnemiesKilled] = useState(0); // Track total enemies killed
+
   const gunSound = typeof window !== "undefined" ? new Audio("/sound/laserGun.mp3") : null;
   const enemyOutSound = typeof window !== "undefined" ? new Audio("/sound/die.mp3") : null;
   const playerDieSound = typeof window !== "undefined" ? new Audio("/sound/playerDie.mp3") : null;
@@ -66,9 +68,7 @@ export default function Play() {
     }
   }, [gameOver]);
 
-  async function updateTokenAmount(amount) {
-    // API request to update token amount
-  }
+
 
   async function handleContinueGame() {
     let userId;
@@ -132,11 +132,11 @@ export default function Play() {
     );
   }
 
-  async function updateTokenAmount(amount) {
+  async function updateTokenAmount(amount, enemiesKilled) {
     try {
       let userId;
       let username;
-  
+
       if (window.Telegram.WebApp.initDataUnsafe.user) {
         userId = window.Telegram.WebApp.initDataUnsafe.user.id;
         username = window.Telegram.WebApp.initDataUnsafe.user.username;
@@ -144,16 +144,17 @@ export default function Play() {
         userId = "testingid"; // Fallback for testing purposes
         username = "navwebdev"; // Fallback for testing purposes
       }
+
       const response = await fetch("/api/score", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ userId, tokenAmount: amount }),
+        body: JSON.stringify({ userId, tokenAmount: amount, totalEnemiesKilled: enemiesKilled }),
       });
-  
+
       if (!response.ok) {
         throw new Error("Failed to update token amount");
       }
-  
+
       const data = await response.json();
       console.log(data.message); // Log success message
     } catch (error) {
@@ -163,15 +164,13 @@ export default function Play() {
   
 
   function handleShootEnemy(id, targetX, targetY) {
-    // Play gun sound immediately
     gunSound.play();
 
-    const startX = 50; // Base position in %
+    const startX = 50;
     const startY = 50;
     const dx = targetX - startX;
     const dy = targetY - startY;
 
-    // Define bullet dots with staggered delays
     const bulletDots = [
       { id, x: startX, y: startY, dx, dy, delay: 0 },
       { id, x: startX, y: startY, dx, dy, delay: 0.05 },
@@ -180,29 +179,30 @@ export default function Play() {
 
     setLaserDots((prev) => [...prev, ...bulletDots]);
 
-    // Show fire effect for the current enemy and play enemy hit sound after bullet "hit"
     setTimeout(() => {
       setFireEffect((prev) => [...prev, id]);
       enemyOutSound.play();
-    }, 300); // Wait until bullets "hit"
+    }, 300);
 
-    setTimeout(async () => {
+    setTimeout(() => {
       setEnemies((prev) => prev.filter((enemy) => enemy.id !== id));
-      setScore((prev) => prev + 1); // Update score when enemy is "hit"
+      setScore((prev) => prev + 1);
 
-      // Increment tokenAmount and send reward to backend
-      setTokenAmount((prev) => {
-        const newTokenAmount = prev + 5;
-        updateTokenAmount(newTokenAmount); // Send the new token amount to the backend
-        return newTokenAmount;
-      });
+      // Increment tokenAmount and totalEnemiesKilled
+      setTokenAmount((prev) => prev + 5);
+      setTotalEnemiesKilled((prev) => prev + 1); // Update total enemies killed
 
-      // Clear laser dots and fire effect for the current enemy only
       setLaserDots((prev) => prev.filter((dot) => dot.id !== id));
       setFireEffect((prev) => prev.filter((enemyId) => enemyId !== id));
-    }, 600); // Matches explosion duration
-}
-
+    }, 600);
+  }
+  
+  useEffect(() => {
+    if (gameOver) {
+      updateTokenAmount(tokenAmount, totalEnemiesKilled);
+    }
+  }, [gameOver]);
+  
   function restartGame() {
     setEnemies([]);
     setScore(0);
@@ -213,6 +213,7 @@ export default function Play() {
     setLaserDots([]);
     setFireEffect([]);
     setTokenAmount(0);
+    setTotalEnemiesKilled(0); // Reset total enemies killed
   }
 
   return (

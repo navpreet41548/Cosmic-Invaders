@@ -3,6 +3,7 @@ import mongoose from "mongoose";
 const userSchema = new mongoose.Schema(
   {
     userId: { type: String, index: true },
+    totalKills: Number,
     username: String,
     cosmicToken: Number,
     proCoin: Number,

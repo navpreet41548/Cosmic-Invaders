@@ -4,12 +4,12 @@ import dbConnect from "../../../utils/dbConnect";
 export default async function handler(req, res) {
   await dbConnect();
   
-  const { userId, tokenAmount } = req.body;
+  const { userId, tokenAmount,totalEnemiesKilled  } = req.body;
 
-  if (!userId || typeof tokenAmount !== 'number') {
-    return res.status(400).json({ message: "UserId and tokenAmount are required" });
+  
+  if (!userId || typeof tokenAmount !== "number" || typeof totalEnemiesKilled !== "number") {
+    return res.status(400).json({ message: "userId, tokenAmount, and totalEnemiesKilled are required" });
   }
-
   try {
    
     // Find the user by userId
@@ -22,13 +22,17 @@ export default async function handler(req, res) {
 
     // Update user's builderBuck
     user.cosmicToken = (user.cosmicToken || 0) + tokenAmount;
+    user.totalKills = (user.totalEnemiesKilled || 0) + totalEnemiesKilled;
+
 
     // Save the updated user data
     await user.save();
 
     return res.status(200).json({ 
       message: `Awarded ${tokenAmount}`,
-      cosmicToken: user.cosmicToken
+      cosmicToken: user.cosmicToken,
+      totalEnemiesKilled: user.totalKills,
+
     });
   } catch (error) {
     console.error(error);
