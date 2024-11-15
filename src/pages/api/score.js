@@ -22,7 +22,7 @@ export default async function handler(req, res) {
 
     // Update user's builderBuck
     user.cosmicToken = (user.cosmicToken || 0) + tokenAmount;
-    user.totalKills = (user.totalEnemiesKilled || 0) + totalEnemiesKilled;
+    user.totalKills += (user.totalEnemiesKilled || 0) + totalEnemiesKilled;
 
 
     // Save the updated user data
