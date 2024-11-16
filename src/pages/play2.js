@@ -164,40 +164,46 @@ export default function Play() {
     }
   }
   
-
-  function handleShootEnemy(id, targetX, targetY) {
+  function handleShootEnemy(id, targetXPercent, targetYPercent) {
     gunSound.play();
-
-    const startX = 50;
-    const startY = 50;
-    const dx = targetX - startX;
-    const dy = targetY - startY;
-
+  
+    const baseCenterX = 50; // Base center percentage
+    const baseCenterY = 50; // Base center percentage
+  
+    const enemySizePercent = 50 / 500 * 100; // Convert enemy size (50px out of 500px container width) to percentage
+    const adjustedTargetXPercent = targetXPercent + enemySizePercent / 2; // Add half the enemy size to get the center
+    const adjustedTargetYPercent = targetYPercent + enemySizePercent / 2; // Add half the enemy size to get the center
+  
+    const dx = adjustedTargetXPercent - baseCenterX;
+    const dy = adjustedTargetYPercent - baseCenterY;
+  
     const bulletDots = [
-      { id, x: startX, y: startY, dx, dy, delay: 0 },
-      { id, x: startX, y: startY, dx, dy, delay: 0.05 },
-      { id, x: startX, y: startY, dx, dy, delay: 0.1 }
+      { id, x: baseCenterX, y: baseCenterY, dx, dy, delay: 0 },
+      { id, x: baseCenterX, y: baseCenterY, dx, dy, delay: 0.05 },
+      { id, x: baseCenterX, y: baseCenterY, dx, dy, delay: 0.1 },
     ];
-
+  
     setLaserDots((prev) => [...prev, ...bulletDots]);
-
+  
     setTimeout(() => {
       setFireEffect((prev) => [...prev, id]);
       enemyOutSound.play();
     }, 300);
-
+  
     setTimeout(() => {
       setEnemies((prev) => prev.filter((enemy) => enemy.id !== id));
       setScore((prev) => prev + 1);
-
+  
       // Increment tokenAmount and totalEnemiesKilled
       setTokenAmount((prev) => prev + 5);
       setTotalEnemiesKilled((prev) => prev + 1); // Update total enemies killed
-
+  
       setLaserDots((prev) => prev.filter((dot) => dot.id !== id));
       setFireEffect((prev) => prev.filter((enemyId) => enemyId !== id));
     }, 600);
   }
+  
+  
   
   useEffect(() => {
     if (gameOver) {
