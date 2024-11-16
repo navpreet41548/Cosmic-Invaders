@@ -39,7 +39,7 @@ const Header = ({ user }) => {
         <Link href={"/leaderboard"}>
           <Image
             className={styles.wideImage}
-            src={"/images/leaderboard.png"}
+            src={"/images/leaderBoard.png"}
             width={100}
             height={60}
             alt="Bonus Image"
