@@ -254,20 +254,16 @@ export default function Play() {
           console.log("Login response:", data);
 
           // Set user data and calculate totals
-          const { referredUser = [] } = data.user;
           setUser(data.user);
 
           // Calculate Total Referrals and Earnings
-          const referralCount = referredUser.length;
-          setTotalRefers(referralCount);
-          setTotalEarnings(referralCount * 0.2); // $0.2 per referral
           const baseMapping = {
             "Base 1": "/images/base1.png",
             "Base 2": "/images/base2.png",
             "Base 3": "/images/base3.png",
             "Base 4": "/images/base4.png",
           };
-  
+          console.log(data.user.currentBase)
           setBaseImage(baseMapping[data.user.currentBase] || "/images/base1.png");
         } catch (error) {
           console.error("Error during login request:", error);
