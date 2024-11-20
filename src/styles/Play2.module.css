@@ -269,3 +269,87 @@ color: #640300;
     }
   }
   
+
+  .powerUpContainerWrapper{
+    display: flex;
+    position: absolute;
+    bottom: 10px;
+    width: 100%;
+    justify-content: center;
+  }
+
+
+  .powerUpContainer{
+    display: flex;
+
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin: 0 10px ;
+
+  }
+
+
+  .powerUpImage{
+    width: 50px;
+    height: auto;
+    
+  }
+
+  .powerUpNumber{
+    color: white;
+    font-family: "Days One", sans-serif;
+
+  }
+
+  .powerUpImageContainer{
+    position: relative;
+  }
+
+  .powerUpCooldown{
+    background-color: black;
+    top: 0;
+    left: 0;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    border-radius:5px ;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .powerUpCooldownActive{
+    opacity: 1;
+    pointer-events: all;
+  }
+
+
+  .forceField {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 10;
+    opacity: 0.8;
+    width: 130px;
+    height: auto;
+  }
+
+
+  .pulseEffect {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 0;
+    height: 0;
+    background: rgba(0, 200, 255, 0.3); /* Light blue with transparency */
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none; /* Prevent interactions */
+    transition: width 0.1s linear, height 0.1s linear; /* Smooth animation */
+  }
+  

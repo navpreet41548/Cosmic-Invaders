@@ -894,10 +894,12 @@ const shop = () => {
                 <h4 className={styles.tokenNumber}>5</h4>
               </div>
               <MakePayment
-                amount={0.00005} // Amount in NanoTONs
+                amount={0.05} // Amount in NanoTONs
+                userId={user && user.userId}
+                itemType={"50000 Cosmic Token"}
                 onSuccess={() => getUserData()}
               />
-              {creatingPayment ? (
+              {/* {creatingPayment ? (
                 <div className={styles.buyButton}>
                   <i className="bx bx-loader-alt bx-spin"></i>
                 </div>
@@ -910,7 +912,7 @@ const shop = () => {
                 >
                   BUY NOW
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -944,10 +946,12 @@ const shop = () => {
                 <h4 className={styles.tokenNumber}>9.50</h4>
               </div>
               <MakePayment
-                amount={9} // Amount in NanoTONs
+                amount={9.5} // Amount in NanoTONs
+                userId={user && user.userId}
+                itemType={"100000 Cosmic Token"}
                 onSuccess={() => getUserData()}
               />
-              {creatingPayment ? (
+              {/* {creatingPayment ? (
                 <div className={styles.buyButton}>
                   <i className="bx bx-loader-alt bx-spin"></i>
                 </div>
@@ -960,7 +964,7 @@ const shop = () => {
                 >
                   BUY NOW
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -994,10 +998,12 @@ const shop = () => {
                 <h4 className={styles.tokenNumber}>22.5</h4>
               </div>
               <MakePayment
-                amount={22} // Amount in NanoTONs
+                amount={22.5} // Amount in NanoTONs
+                userId={user && user.userId}
+                itemType={"250000 Cosmic Token"}
                 onSuccess={() => getUserData()}
               />
-              {creatingPayment ? (
+              {/* {creatingPayment ? (
                 <div className={styles.buyButton}>
                   <i className="bx bx-loader-alt bx-spin"></i>
                 </div>
@@ -1010,7 +1016,7 @@ const shop = () => {
                 >
                   BUY NOW
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -1044,10 +1050,12 @@ const shop = () => {
                 <h4 className={styles.tokenNumber}>42.50</h4>
               </div>
               <MakePayment
-                amount={42} // Amount in NanoTONs
+                amount={42.5} // Amount in NanoTONs
+                userId={user && user.userId}
+                itemType={"500000 Cosmic Token"}
                 onSuccess={() => getUserData()}
               />
-              {creatingPayment ? (
+              {/* {creatingPayment ? (
                 <div className={styles.buyButton}>
                   <i className="bx bx-loader-alt bx-spin"></i>
                 </div>
@@ -1060,7 +1068,7 @@ const shop = () => {
                 >
                   BUY NOW
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -1095,9 +1103,11 @@ const shop = () => {
               </div>
               <MakePayment
                 amount={78} // Amount in NanoTONs
+                userId={user && user.userId}
+                itemType={"1000000 Cosmic Token"}
                 onSuccess={() => getUserData()}
               />
-              {creatingPayment ? (
+              {/* {creatingPayment ? (
                 <div className={styles.buyButton}>
                   <i className="bx bx-loader-alt bx-spin"></i>
                 </div>
@@ -1110,7 +1120,7 @@ const shop = () => {
                 >
                   BUY NOW
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -1145,9 +1155,11 @@ const shop = () => {
               </div>
               <MakePayment
                 amount={190} // Amount in NanoTONs
+                userId={user && user.userId}
+                itemType={"2500000 Cosmic Token"}
                 onSuccess={() => getUserData()}
               />
-              {creatingPayment ? (
+              {/* {creatingPayment ? (
                 <div className={styles.buyButton}>
                   <i className="bx bx-loader-alt bx-spin"></i>
                 </div>
@@ -1160,7 +1172,7 @@ const shop = () => {
                 >
                   BUY NOW
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -1195,9 +1207,11 @@ const shop = () => {
               </div>
               <MakePayment
                 amount={350} // Amount in NanoTONs
+                userId={user && user.userId}
+                itemType={"5000000 Cosmic Token"}
                 onSuccess={() => getUserData()}
               />
-              {creatingPayment ? (
+              {/* {creatingPayment ? (
                 <div className={styles.buyButton}>
                   <i className="bx bx-loader-alt bx-spin"></i>
                 </div>
@@ -1210,7 +1224,7 @@ const shop = () => {
                 >
                   BUY NOW
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -1245,9 +1259,11 @@ const shop = () => {
               </div>
               <MakePayment
                 amount={680} // Amount in NanoTONs
+                userId={user && user.userId}
+                itemType={"10000000 Cosmic Token"}
                 onSuccess={() => getUserData()}
               />
-              {creatingPayment ? (
+              {/* {creatingPayment ? (
                 <div className={styles.buyButton}>
                   <i className="bx bx-loader-alt bx-spin"></i>
                 </div>
@@ -1260,7 +1276,7 @@ const shop = () => {
                 >
                   BUY NOW
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>
@@ -1295,9 +1311,11 @@ const shop = () => {
               </div>
               <MakePayment
                 amount={1000} // Amount in NanoTONs
+                userId={user && user.userId}
+                itemType={"15000000 Cosmic Token"}
                 onSuccess={() => getUserData()}
               />
-              {creatingPayment ? (
+              {/* {creatingPayment ? (
                 <div className={styles.buyButton}>
                   <i className="bx bx-loader-alt bx-spin"></i>
                 </div>
@@ -1311,7 +1329,7 @@ const shop = () => {
                 >
                   BUY NOW
                 </div>
-              )}
+              )} */}
             </div>
           </div>
         </div>

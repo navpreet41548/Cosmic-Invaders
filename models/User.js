@@ -9,10 +9,8 @@ const userSchema = new mongoose.Schema(
     cosmicToken: Number,
     proCoin: Number,
     powerUps: {
-      laserBlast: Number,
-      shieldBarrier: Number,
-      rapidFire: Number,
-      timeWrap: Number,
+      forceField: Number,
+      energyPulse: Number,
     },
     referCode: {
       type: String,

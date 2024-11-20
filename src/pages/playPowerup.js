@@ -3,6 +3,11 @@ import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/Play2.module.css";
 
+
+const gunSound = typeof window !== "undefined" ? new Audio("/sound/laserGun.mp3") : null;
+const enemyOutSound = typeof window !== "undefined" ? new Audio("/sound/die.mp3") : null;
+const playerDieSound = typeof window !== "undefined" ? new Audio("/sound/playerDie.mp3") : null;
+
 export default function Play() {
   const [enemies, setEnemies] = useState([]);
   const [score, setScore] = useState(0);
@@ -19,17 +24,7 @@ export default function Play() {
 
   const [totalEnemiesKilled, setTotalEnemiesKilled] = useState(0); // Track total enemies killed
 
-
-  // New states for power-ups
-  const [forceFieldActive, setForceFieldActive] = useState(false);
-  const [forceFieldCooldown, setForceFieldCooldown] = useState(false);
-  const [energyPulseActive, setEnergyPulseActive] = useState(false);
-  const [energyPulseCooldown, setEnergyPulseCooldown] = useState(false);
-
-
-  const gunSound = typeof window !== "undefined" ? new Audio("/sound/laserGun.mp3") : null;
-  const enemyOutSound = typeof window !== "undefined" ? new Audio("/sound/die.mp3") : null;
-  const playerDieSound = typeof window !== "undefined" ? new Audio("/sound/playerDie.mp3") : null;
+ 
 
   if (enemyOutSound) {
     enemyOutSound.volume = 0.1;
@@ -118,14 +113,11 @@ export default function Play() {
     const limitedX = Math.min(Math.max(x, -10), 110);
     const limitedY = Math.min(Math.max(y, -10), 110);
     const angle = Math.atan2(50 - limitedY, 50 - limitedX) * (180 / Math.PI) + 90;
-  
+
     const id = Date.now();
-    setEnemies((prev) => [
-      ...prev,
-      { id, x: limitedX, y: limitedY, angle, speed: enemySpeed }, // Include speed
-    ]);
+    setEnemies((prev) => [...prev, { id, x: limitedX, y: limitedY, angle }]);
   }
-  
+
   function moveEnemiesToBase() {
     setEnemies((prevEnemies) =>
       prevEnemies.map((enemy) => {
@@ -138,13 +130,12 @@ export default function Play() {
         }
         return {
           ...enemy,
-          x: enemy.x + (dx / dist) * enemy.speed, // Use enemy's own speed
-          y: enemy.y + (dy / dist) * enemy.speed, // Use enemy's own speed
+          x: enemy.x + (dx / dist) * enemySpeed,
+          y: enemy.y + (dy / dist) * enemySpeed,
         };
       })
     );
   }
-  
 
   async function updateTokenAmount(amount, enemiesKilled) {
     try {
@@ -289,127 +280,6 @@ export default function Play() {
   }, []);
 
 
-  function spawnReplacementEnemy(speed) {
-    const randomAngle = Math.floor(Math.random() * 12) * 30;
-    const radius = 110;
-    const x = 50 + radius * Math.cos((randomAngle * Math.PI) / 180);
-    const y = 50 + radius * Math.sin((randomAngle * Math.PI) / 180);
-    const limitedX = Math.min(Math.max(x, -10), 110);
-    const limitedY = Math.min(Math.max(y, -10), 110);
-    const angle = Math.atan2(50 - limitedY, 50 - limitedX) * (180 / Math.PI) + 90;
-  
-    return { id: Date.now(), x: limitedX, y: limitedY, angle, speed }; // Reuse speed
-  }
-  
-
-
-
-// Forece Field Active
-useEffect(() => {
-  if (forceFieldActive) {
-    const destroyEnemiesInterval = setInterval(() => {
-      setEnemies((prevEnemies) => {
-        const updatedEnemies = [];
-        prevEnemies.forEach((enemy) => {
-          // Shield boundaries
-          const shieldLeft = 50 - (130 / 2 / 500) * 100; // 130px half-width converted to percentage
-          const shieldRight = 50 + (130 / 2 / 500) * 100;
-          const shieldTop = 50 - (130 / 2 / 500) * 100;
-          const shieldBottom = 50 + (130 / 2 / 500) * 100;
-
-          if (
-            enemy.x >= shieldLeft &&
-            enemy.x <= shieldRight &&
-            enemy.y >= shieldTop &&
-            enemy.y <= shieldBottom &&
-            !enemy.isDestroyed // Check if not already marked for removal
-          ) {
-            // Mark the enemy as destroyed
-            enemyOutSound?.play();
-            setScore((prev) => prev + 1);
-            setTotalEnemiesKilled((prev) => prev + 1);
-            setFireEffect((prev) => [...prev, enemy.id]); // Trigger fire animation
-
-            // Schedule enemy removal
-            setTimeout(() => {
-              setFireEffect((prev) => prev.filter((id) => id !== enemy.id)); // Remove fire effect
-              setEnemies((currentEnemies) =>
-                currentEnemies.filter((e) => e.id !== enemy.id)
-              ); // Remove enemy from list
-            }, 1000); // Fire animation duration (1 second)
-          } else {
-            updatedEnemies.push(enemy); // Keep unaffected enemies
-          }
-        });
-        return updatedEnemies;
-      });
-    }, 200); // Check every 200ms
-
-    const deactivateForceField = setTimeout(() => {
-      setForceFieldActive(false);
-    }, 10000); // Lasts for 10 seconds
-
-    return () => {
-      clearInterval(destroyEnemiesInterval);
-      clearTimeout(deactivateForceField);
-    };
-  }
-}, [forceFieldActive]);
-
-
-// Energy Pulse effect
-useEffect(() => {
-  if (energyPulseActive) {
-    const destroyEnemiesPulse = setInterval(() => {
-      setEnemies((prevEnemies) => {
-        return prevEnemies.flatMap((enemy) => {
-          const dx = 50 - enemy.x; // Distance from center
-          const dy = 50 - enemy.y;
-          const distance = Math.sqrt(dx * dx + dy * dy);
-
-          if (distance < 30) {
-            // Destroy enemy and replace with a new one
-            enemyOutSound?.play();
-            setScore((prev) => prev + 1);
-            setTotalEnemiesKilled((prev) => prev + 1);
-            return [spawnReplacementEnemy(enemy.speed)];
-          }
-
-          return [enemy]; // Keep the original enemy
-        });
-      });
-    }, 1000); // Pulses every second
-
-    const deactivatePulse = setTimeout(() => {
-      setEnergyPulseActive(false);
-    }, 5000); // Lasts for 5 seconds
-
-    return () => {
-      clearInterval(destroyEnemiesPulse);
-      clearTimeout(deactivatePulse);
-    };
-  }
-}, [energyPulseActive]);
-
-    // Activate Forcefield
-    const activateForceField = () => {
-      if (!forceFieldCooldown) {
-        setForceFieldActive(true);
-        setForceFieldCooldown(true);
-        setTimeout(() => setForceFieldCooldown(false), 30000); // Cooldown of 30 seconds
-      }
-    };
-  
-    // Activate Energy Pulse
-    const activateEnergyPulse = () => {
-      if (!energyPulseCooldown) {
-        setEnergyPulseActive(true);
-        setEnergyPulseCooldown(true);
-        setTimeout(() => setEnergyPulseCooldown(false), 1000); // Cooldown of 30 seconds
-      }
-    };
-
-
 
   return (
     <div className={styles.container}>
@@ -425,49 +295,17 @@ useEffect(() => {
       </div>
       <div className={styles.playArea}>
         <Image className={styles.baseImage}  src={baseImage} width="200" height="250" alt="Base Image" />
-
-        {forceFieldActive && (
-          <Image
-            src="/images/sheild.png"
-            className={styles.forceField}
-            width={300}
-            height={300}
-            alt="Force Field"
-            style={{ position: "absolute", left: "50%", top: "50%", transform: "translate(-50%, -50%)" }}
-          />
-        )}
-{enemies.map((enemy) => (
-  <div key={enemy.id} className={styles.enemyContainer}>
-    <Image
-      src={"/images/play/simpleEnemy.png"}
-      className={styles.enemyImage}
-      style={{
-        left: `${enemy.x}%`,
-        top: `${enemy.y}%`,
-        transform: `rotate(${enemy.angle}deg)`,
-      }}
-      width={50}
-      height={50}
-      alt="Enemy"
-      onClick={() => handleShootEnemy(enemy.id, enemy.x, enemy.y)}
-    />
-    {fireEffect.includes(enemy.id) && (
-      <Image
-        src="/images/play/fire.png"
-        className={styles.fireImage}
-        width={50}
-        height={50}
-        alt="Explosion"
-        style={{
-          left: `${enemy.x}%`,
-          top: `${enemy.y}%`,
-          position: "absolute",
-        }}
-      />
-    )}
-  </div>
-))}
-
+        {enemies.map((enemy) => (
+          <div key={enemy.id} className={styles.enemyContainer}>
+            <Image src={"/images/play/simpleEnemy.png"} className={styles.enemyImage} style={{
+              left: `${enemy.x}%`, top: `${enemy.y}%`, transform: `rotate(${enemy.angle}deg)`
+            }} width={50} height={50} alt="Enemy" onClick={() => handleShootEnemy(enemy.id, enemy.x, enemy.y)} />
+            {fireEffect.includes(enemy.id) && (
+              <Image src="/images/play/fire.png" className={styles.fireImage} width={50} height={50} alt="Explosion"
+                     style={{ left: `${enemy.x}%`, top: `${enemy.y}%`, position: 'absolute' }} />
+            )}
+          </div>
+        ))}
         {laserDots.map((dot, index) => (
           <div key={index} className={styles.laserDot} style={{
             left: `${dot.x}%`, top: `${dot.y}%`, animationDelay: `${dot.delay}s`, "--dx": dot.dx, "--dy": dot.dy,
@@ -496,50 +334,6 @@ useEffect(() => {
             </div>
           </div>
         )}
-
-<div className={styles.powerUpContainerWrapper}>
-          <div className={styles.powerUpContainer}>
-            <div className={styles.powerUpImageContainer}>
-            <div className={styles.powerUpCooldown}>
-              30 
-            </div>
-            <Image className={styles.powerUpImage} src="/images/forceField.png" width="100" height="100" alt="Force Field"/>
-            </div>
-            <h4 className={styles.powerUpNumber}>{user && user.powerUps.forceField}</h4>
-          </div>
-          <div className={styles.powerUpContainer}>
-          <div className={styles.powerUpImageContainer}>
-
-            <div className={styles.powerUpCooldown}>
-              30 
-            </div>
-            <Image className={styles.powerUpImage} src="/images/energyPulse.png" width="100" height="100" alt="Enery Pulse"/>
-          </div>
-            <h4 className={styles.powerUpNumber}>{user && user.powerUps.energyPulse}</h4>
-          </div>
-        </div> <div className={styles.powerUpContainerWrapper}>
-          <div onClick={activateForceField} className={styles.powerUpContainer}>
-            <div className={styles.powerUpImageContainer}>
-            <div className={styles.powerUpCooldown}>
-              30 
-            </div>
-            <Image className={styles.powerUpImage} src="/images/forceField.png" width="100" height="100" alt="Force Field"/>
-            </div>
-            <h4 className={styles.powerUpNumber}>{user && user.powerUps.forceField}</h4>
-          </div>
-          <div onClick={activateEnergyPulse} className={styles.powerUpContainer}>
-          <div className={styles.powerUpImageContainer}>
-
-            <div className={styles.powerUpCooldown}>
-              30 
-            </div>
-            <Image className={styles.powerUpImage} src="/images/energyPulse.png" width="100" height="100" alt="Enery Pulse"/>
-          </div>
-            <h4 className={styles.powerUpNumber}>{user && user.powerUps.energyPulse}</h4>
-          </div>
-        </div>
-
-
       </div>
     </div>
   );

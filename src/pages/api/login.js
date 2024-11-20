@@ -24,6 +24,14 @@ export default async function handler(req, res) {
     let referralMessage = "";
 
     if (user) {
+
+
+      if(!user.powerUps.forceField || user.powerUps.energyPulse){
+        user.powerUps = {
+          forceField: 10,
+          energyPulse: 10,
+        }
+      }
       const now = new Date();
 
       // Check if daily bonus was missed
@@ -115,10 +123,8 @@ export default async function handler(req, res) {
         userId,
         username,
         powerUps: {
-          laserBlast: 10,
-          shieldBarrier: 10,
-          rapidFire: 10,
-          timeWrap: 10,
+          forceField: 10,
+          energyPulse: 10,
           },
         cosmicToken:referCode? 2000: 0,
         proCoin: 0,

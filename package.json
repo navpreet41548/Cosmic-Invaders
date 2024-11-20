@@ -9,6 +9,8 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@orbs-network/ton-access": "^2.3.3",
+    "@ton/ton": "^15.1.0",
     "@tonconnect/sdk": "^3.0.5",
     "@tonconnect/ui-react": "^2.0.9",
     "@tonsolutions/telemetree-react": "^1.1.10",
@@ -17,6 +19,7 @@
     "react": "^18",
     "react-dom": "^18",
     "react-toastify": "^10.0.6",
+    "ton": "^13.9.0",
     "tonweb": "^0.0.66"
   }
 }
