@@ -61,7 +61,7 @@ export default function Home() {
 
   return (
     <>
-     
+
       <div className={styles.container}>
         <Header user={user} />
         <Image
@@ -87,8 +87,25 @@ export default function Home() {
         </div>
         <div className={styles.buttonContainer2}>
 
-        <TonConnectContainer />
+          <TonConnectContainer />
         </div>
+        <div className={styles.buttonTextContainer}>
+          <h3 className={styles.buttonHeading}>Connect with telegram  bot so that you dont loose your progress</h3>
+          <a href={"https://t.me/CosmicInvadersBot"} className={styles.button}>
+            CONNECT
+          </a>
+
+        </div>
+
+        <div className={styles.socialContainer}>
+          <a href="https://t.me/CosmicInvadersGame">
+            <i className='bx bxl-telegram'></i>
+            </a>
+          <a href="https://x.com/Cosmic_Invaders">
+            <i className='bx bxl-twitter' ></i>
+            </a>
+        </div>
+
       </div>
     </>
   );

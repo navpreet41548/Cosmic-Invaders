@@ -42,3 +42,41 @@
   align-items: center;
   margin-top: 20px;
 }
+
+.buttonTextContainer{
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-top: 20px;
+  padding: 10px 30px;
+}
+
+.buttonHeading{
+  color: white;
+  font-family: "Days One", sans-serif;
+  text-align: center;
+  font-size: 15px;
+  margin-bottom: 10px;
+}
+
+.socialContainer{
+  position: absolute;
+  bottom: 10px;
+  right: 10px;
+  color: white;
+  display: flex;
+}
+
+.socialContainer i {
+  background-color: white;
+  color: rgb(26, 26, 26);
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-left: 10px;
+  font-size: 25px;
+}
