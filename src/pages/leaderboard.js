@@ -77,32 +77,49 @@ const Leaderboard = () => {
       <h5 className={styles.mainHeading}>LEADERBOARD</h5>
 
       <div>
-        {topPlayers.length > 0 ? (
-          topPlayers.map((player, index) => (
-            <div className={styles.player} key={player.userId}>
-              <div className={styles.left}>
-                <div className={styles.playerNumber}>{index + 1}</div>
-              </div>
-              <div className={styles.center}>
-                <h3 className={styles.playerName}>{player.username || `Player ${index + 1}`}</h3>
-                <div className={styles.kills}>{player.totalKills.toLocaleString()} Kills</div>
-              </div>
-              <div className={styles.right}>
-                <div className={styles.medalContainer}>
-                  <Image
-                    className={styles.medailImage}
-                    src="/images/medal.png"
-                    width="50"
-                    height="50"
-                    alt="Medal Image"
-                  />
-                </div>
-              </div>
-            </div>
-          ))
-        ) : (
-          <p>Loading leaderboard...</p>
-        )}
+      {topPlayers.length > 0 ? (
+  topPlayers.map((player, index) => (
+    <div className={styles.player} key={player.userId}>
+      <div className={styles.left}>
+        <div className={styles.playerNumber}>{index + 1}</div>
+      </div>
+      <div className={styles.center}>
+        <h3 className={styles.playerName}>{player.username || `Player ${index + 1}`}</h3>
+        <div className={styles.kills}>{player.totalKills.toLocaleString()} Kills</div>
+      </div>
+      <div className={styles.right}>
+        <div className={styles.medalContainer}>
+          <Image
+            className={styles.medailImage}
+            src={
+              index === 0
+                ? "/images/gold.png" // Gold medal for 1st place
+                : index === 1
+                ? "/images/silver.png" // Silver medal for 2nd place
+                : index === 2
+                ? "/images/bronze.png" // Bronze medal for 3rd place
+                : "/images/medal.png" // Default medal for others
+            }
+            width="50"
+            height="50"
+            alt={
+              index === 0
+                ? "Gold Medal"
+                : index === 1
+                ? "Silver Medal"
+                : index === 2
+                ? "Bronze Medal"
+                : "Participation Medal"
+            }
+          />
+        </div>
+      </div>
+    </div>
+  ))
+) : (
+  <p>Loading leaderboard...</p>
+)}
+
       </div>
     </div>
   );

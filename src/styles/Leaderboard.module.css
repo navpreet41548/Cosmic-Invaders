@@ -164,15 +164,15 @@
 }
 
 .player:nth-child(1) .medalContainer{
-    background-color: #FDAC1A;
+    background-color: #ffe1a9;
 
 }
 .player:nth-child(2) .medalContainer{
-    background-color: #C7C7C7;
+    background-color: #e6e6e6;
 
 }
 .player:nth-child(3) .medalContainer{
-    background-color: #926042;
+    background-color: #dfc2b0;
 
 }
 .player:nth-child(4),
@@ -188,7 +188,7 @@
 }
 
 .medailImage{
-    width: 40px;
+    width: 30px;
     height: auto;
 }
 
