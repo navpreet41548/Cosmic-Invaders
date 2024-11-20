@@ -6,7 +6,7 @@ export default async function handler(req, res) {
     return res.status(405).json({ message: "Method not allowed" });
   }
 
-  await dbConnect(); // Connect to the database
+  // await dbConnect(); // Connect to the database
   let { userId, username } = req.body;
   let referCode = req.body.referCode;
   if (!username) {
