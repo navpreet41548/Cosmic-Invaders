@@ -61,11 +61,14 @@
 }
 
 .socialContainer{
-  position: absolute;
+  /* position: absolute; */
   bottom: -40px;
   right: 10px;
   color: white;
   display: flex;
+  width: 100%;
+  justify-content: center;
+  margin-top: 20px;
 }
 
 .socialContainer i {
