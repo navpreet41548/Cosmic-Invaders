@@ -2,12 +2,37 @@ import React from "react";
 import styles from "./Header.module.css";
 import Link from "next/link";
 import Image from "next/image";
+import { useState, useEffect } from "react";
 
 const Header = ({ user }) => {
+
+  const [showVideoContainer, setShowVideoContainer] = useState(true);
+
+
+  
+  useEffect(() => {
+    if (user) {
+      const isNewUser = user.createdAt && user.updatedAt
+        ? user.createdAt === user.updatedAt
+        : !!user.createdAt;
+
+      setShowVideoContainer(isNewUser);
+    }
+  }, [user]);
+
+  
   const toggleDropDown = (index) => {
     const dropDowns = document.getElementsByClassName(styles.dropdownContainer);
     const element = dropDowns[index];
     element.classList.toggle(styles.dropDownActive);
+  };
+
+  const handleCloseVideo = () => {
+    setShowVideoContainer(false);
+  };
+
+  const handleShowVideo = () => {
+    setShowVideoContainer(true);
   };
 
   return (
@@ -111,6 +136,18 @@ const Header = ({ user }) => {
               alt="Refer"
             />
           </Link>
+          <div
+            className={styles.smallImageContainer}
+            onClick={handleShowVideo}
+          >
+            <Image
+              className={styles.smallImage}
+              src={"/images/howToPlay.png"}
+              width={40}
+              height={40}
+              alt="How to play"
+            />
+          </div>
         </div>
 
         <div className={styles.coinWrapper}>
@@ -138,6 +175,23 @@ const Header = ({ user }) => {
           </div>
         </div>
       </div>
+
+      {showVideoContainer && (
+        <div className={styles.videoContainer}>
+          <div className={styles.videoHeading}>How to play</div>
+          <div className={styles.videoCross} onClick={handleCloseVideo}>
+            <i className="bx bx-x"></i>
+          </div>
+          <video
+            className={styles.video}
+            src="/video/play.mp4"
+            autoPlay
+            loop
+            muted
+            playsInline
+          />
+        </div>
+      )}
     </div>
   );
 };
