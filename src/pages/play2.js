@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import styles from "@/styles/Play2.module.css";
+import {TadsWidget, renderTadsWidget } from "react-tads-widget";
 
 
 const gunSound = typeof window !== "undefined" ? new Audio("/sound/laserGun.mp3") : null;
@@ -228,6 +229,19 @@ export default function Play() {
   }
 
 
+  const rewardUserByShow = () => {
+    console.log("User rewarded for impression");
+};
+
+const onAdsNotFound = () => {
+    console.log("Not found ads for this user");
+}
+
+const showFullScreen = () => {
+    renderTadsWidget({ id: 'unique-widget-id' })
+}
+
+
   useEffect(() => {
     const handleLogin = async () => {
       const url = new URL(window.location.href);
@@ -280,6 +294,9 @@ export default function Play() {
   }, []);
 
 
+  // Ads
+
+
 
   return (
     <div className={styles.container}>
@@ -326,7 +343,7 @@ export default function Play() {
                          alt="Cosmic Token" />
                   10
                 </button>
-                <button className={`${styles.gameOverButton} ${styles.gameOverButton2}`} onClick={() => window.location.href = '/'}>
+                <button onClick={showFullScreen} className={`${styles.gameOverButton} ${styles.gameOverButton2}`} >
                   <Image className={styles.gameOverButtonIcon} src="/images/play/ad.png" width="50" height={'50'} alt="Ad Icon" />
                   FREE
                 </button>
@@ -335,6 +352,9 @@ export default function Play() {
           </div>
         )}
       </div>
+
+      <TadsWidget id="236" debug={false} onAdsNotFound={onAdsNotFound} onShowReward={rewardUserByShow} />
+
     </div>
   );
 }
