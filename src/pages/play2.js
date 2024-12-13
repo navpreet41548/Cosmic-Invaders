@@ -238,7 +238,7 @@ const onAdsNotFound = () => {
 }
 
 const showFullScreen = () => {
-    renderTadsWidget({ id: 'unique-widget-id' })
+    renderTadsWidget({ id: '236' })
 }
 
 
