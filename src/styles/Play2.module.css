@@ -70,6 +70,11 @@
     left: 0;
     background-color: rgba(0, 0, 0, 0.158);
     /* pointer-events: none; */
+    display: flex;
+    flex-direction: column;
+    /* justify-content: center; */
+    padding-top: 200px;
+    align-items: center;
   }
 
   .gameOver {
@@ -85,12 +90,12 @@
   }
   
   .gameOverContainer {
-    position: absolute;
+    /* position: absolute; */
     background-color: #7E52E3;
     top: 50%;
     /* top: 20%; */
     left: 50%;
-    transform: translate(-50%, -50%);
+    /* transform: translate(-50%, -50%); */
     text-align: center;
     z-index: 5;
     width: 90%;
@@ -353,3 +358,12 @@ color: #640300;
     transition: width 0.1s linear, height 0.1s linear; /* Smooth animation */
   }
   
+
+  .adsContainer{
+    width: 100%;
+    height: 300px;
+    /* background-color: white; */
+    /* position: absolute; */
+    /* top: 50% */
+    margin-top: 10px;
+  }

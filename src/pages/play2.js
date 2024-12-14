@@ -342,10 +342,13 @@ const onAdsNotFound = () => {
                   <Image className={styles.gameOverButtonIcon} src="/images/play/ad.png" width="50" height={'50'} alt="Ad Icon" />
                   FREE
                 </button>
-                <TadsWidget id="236" debug={true} onClickReward={rewardUserByClick} onAdsNotFound={onAdsNotFound} />
 
               </div>
             </div>
+                <div className={styles.adsContainer}>
+
+                <TadsWidget id="236" debug={false} onClickReward={rewardUserByClick} onAdsNotFound={onAdsNotFound} />
+                </div>
           </div>
         )}
       </div>
