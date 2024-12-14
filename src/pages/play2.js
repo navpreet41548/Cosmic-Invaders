@@ -20,7 +20,7 @@ export default function Play() {
   const [laserDots, setLaserDots] = useState([]);
   const [fireEffect, setFireEffect] = useState([]);
   const [tokenAmount, setTokenAmount] = useState(0);
-  const [countdown, setCountdown] = useState(5);
+  const [countdown, setCountdown] = useState(10);
   const [user, setUser] = useState()
   const [baseImage, setBaseImage] = useState("/images/base1.png")
 
@@ -59,7 +59,7 @@ export default function Play() {
   useEffect(() => {
     if (gameOver) {
       playerDieSound?.play();
-      setCountdown(5);
+      setCountdown(10);
       const countdownInterval = setInterval(() => {
         setCountdown((prev) => {
           if (prev === 1) {
