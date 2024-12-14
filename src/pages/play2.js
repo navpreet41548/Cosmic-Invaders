@@ -229,17 +229,6 @@ export default function Play() {
   }
 
 
-  const rewardUserByShow = () => {
-    console.log("User rewarded for impression");
-};
-
-const onAdsNotFound = () => {
-    console.log("Not found ads for this user");
-}
-
-const showFullScreen = () => {
-    renderTadsWidget({ id: '236' })
-}
 
 
   useEffect(() => {
@@ -296,7 +285,13 @@ const showFullScreen = () => {
 
   // Ads
 
+  const rewardUserByClick = () => {
+    console.log("User rewarded for click");
+};
 
+const onAdsNotFound = () => {
+    console.log("Not found ads for this user");
+}
 
   return (
     <div className={styles.container}>
@@ -343,7 +338,7 @@ const showFullScreen = () => {
                          alt="Cosmic Token" />
                   10
                 </button>
-                <button onClick={showFullScreen} className={`${styles.gameOverButton} ${styles.gameOverButton2}`} >
+                <button className={`${styles.gameOverButton} ${styles.gameOverButton2}`} >
                   <Image className={styles.gameOverButtonIcon} src="/images/play/ad.png" width="50" height={'50'} alt="Ad Icon" />
                   FREE
                 </button>
@@ -353,7 +348,8 @@ const showFullScreen = () => {
         )}
       </div>
 
-      <TadsWidget id="236" debug={false} onAdsNotFound={onAdsNotFound} onShowReward={rewardUserByShow} />
+      {/* <TadsWidget id="236" debug={false} onAdsNotFound={onAdsNotFound} onShowReward={rewardUserByShow} /> */}
+      <TadsWidget id="236" debug={true} onClickReward={rewardUserByClick} onAdsNotFound={onAdsNotFound} />
 
     </div>
   );
