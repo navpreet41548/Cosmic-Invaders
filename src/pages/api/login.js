@@ -32,19 +32,42 @@ export default async function handler(req, res) {
 
     // Reset daily bonus if missed
     if (user) {
-      const lastCollectedBonus = user.dailyBonus.find((bonus) => bonus.collectedOn);
-      if (lastCollectedBonus) {
-        const timeSinceLastCollected =
-          (now - new Date(lastCollectedBonus.collectedOn)) / (1000 * 60 * 60 * 24);
+      const now = new Date();
+
+      // Assuming user.dailyBonus is an array of 30 elements for the daily bonus streak
+      const lastCollectedBonus = user.dailyBonus.find(bonus => bonus.collected);
+      
+      // Check if all bonuses have been collected
+      const allCollected = user.dailyBonus.every(bonus => bonus.collected);
+      
+      if (allCollected) {
+        // If all 30 days are collected, reset the daily streak
+        user.dailyBonus.forEach((bonus, index) => {
+          bonus.collected = false;
+          bonus.collectedOn = null;
+          bonus.availableOn = new Date(now.getTime() + index * 24 * 60 * 60 * 1000); // Reset available dates starting today
+        });
+      } else if (lastCollectedBonus) {
+        // Calculate the time since the last bonus was collected
+        const timeSinceLastCollected = (now - new Date(lastCollectedBonus.collectedOn)) / (1000 * 60 * 60 * 24);
+      
         if (timeSinceLastCollected >= 2) {
-          updates.dailyBonus = user.dailyBonus.map((bonus, index) => ({
-            ...bonus,
-            collected: false,
-            collectedOn: null,
-            availableOn: new Date(now.getTime() + index * 24 * 60 * 60 * 1000),
-          }));
+          // If more than 1 day has passed since the last collection, reset the streak
+          user.dailyBonus.forEach((bonus, index) => {
+            bonus.collected = false;
+            bonus.collectedOn = null;
+            bonus.availableOn = new Date(now.getTime() + index * 24 * 60 * 60 * 1000);
+          });
         }
+      } else {
+        // If no bonuses have been collected yet, initialize the availableOn dates
+        user.dailyBonus.forEach((bonus, index) => {
+          bonus.collected = false;
+          bonus.collectedOn = null;
+          bonus.availableOn = new Date(now.getTime() - 1000 + index * 24 * 60 * 60 * 1000);
+        });
       }
+      
     } else {
       updates.dailyBonus = createDefaultDailyBonus(now);
     }
